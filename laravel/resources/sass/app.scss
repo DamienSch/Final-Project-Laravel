@@ -1,4 +1,27 @@
-@import "variable.scss";
-h1 {
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+@import 'variable';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+.homeContainer {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    .homePicture {
+        max-width: 50%;
+    }
+}
+.adminNavLinks {
+    text-decoration: none;
+    color: $text-color;
+}
+.adminNavLinks:hover {
+    text-decoration: none;
     color: $text-color;
 }
