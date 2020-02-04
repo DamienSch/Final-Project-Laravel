@@ -18,3 +18,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/crypto_money', 'HomeController@crypto_money')->name('crypto_money');
 Route::get('/users_gestion', 'HomeController@users_gestion')->name('users_gestion');
+

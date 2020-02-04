@@ -27,7 +27,7 @@
     @include('include.navbar')
 
     <main class="py-4">
-        <div class="container homeContainer<">
+        <div class="container">
             <div class="text-center">
                 <h1>Bienvenu sur</h1>
                 <img src="{{asset('assets/bitchest_logo.png')}}" class="img-fluid homePicture" alt="logo bitchest">
