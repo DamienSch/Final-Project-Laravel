@@ -23,7 +23,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app" class="homeContainer">
+    <div id="app" class="">
         @include('include.navbar')
 
         <main class="py-4">
@@ -37,7 +37,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('home') }}">Accueil</a></li>
                                         <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('users_gestion') }}">Gestions des utilisateurs</a></li>
-                                        <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('crypto_money') }}">Crypto monnaies</a></li>
+                                        <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('crypto_moneys') }}">Crypto monnaies</a></li>
                                     </ul>
                                 </div>
                             </div>

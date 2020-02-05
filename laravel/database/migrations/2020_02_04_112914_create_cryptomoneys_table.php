@@ -15,6 +15,8 @@ class CreateCryptomoneysTable extends Migration
     {
         Schema::create('cryptomoneys', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('currency_name');
+            $table->string('API_id');
             $table->timestamps();
         });
     }
@@ -26,6 +28,8 @@ class CreateCryptomoneysTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('cryptomoneys');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

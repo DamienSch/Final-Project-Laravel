@@ -16,6 +16,7 @@ Route::get('/', 'PageController@homePage');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/crypto_money', 'HomeController@crypto_money')->name('crypto_money');
+Route::get('/crypto_moneys', 'HomeController@crypto_moneys')->name('crypto_moneys');
+Route::get('/bitcoin_history', 'HomeController@bitcoin_history')->name('bitcoin_history');
 Route::get('/users_gestion', 'HomeController@users_gestion')->name('users_gestion');
 

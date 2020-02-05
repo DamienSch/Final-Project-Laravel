@@ -19,6 +19,10 @@ class CreateTransactionsTable extends Migration
             $table->unsignedInteger('crypto_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('crypto_id')->references('id')->on('cryptomoneys');
+            $table->string('purchase_quantity');
+            $table->string('expense_amount');
+            $table->string('sale_amount');
+            $table->string('currency_value');
             $table->boolean('soldes');
             $table->date('date_of_purchase')->nullable();
             $table->date('date_of_sale')->nullable();
@@ -33,6 +37,8 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('transactions');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

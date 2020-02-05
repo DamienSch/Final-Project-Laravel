@@ -25,44 +25,39 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $getApiBody = json_decode($this->getApi(), true);
-        print_r($getApiBody);
-        $response = $getApiBody;
+
         return view('pages.home', compact('response'));
     }
-    public function crypto_money()
+    public function crypto_moneys()
     {
-        $getApiBody = json_decode($this->getHistory('BTC'));
+        $getApiBody = json_decode($this->getEuroCurrencyPrix(), true);
+        $response = $getApiBody;
+        return view('pages.crypto_moneys', compact('response'));
+    }
+    public function bitcoin_history()
+    {
+        $getApiBody = json_decode($this->getCurrencyPrixHistory('BTC'));
         $response = $getApiBody->Data->Data;
-        return view('pages.crypto_money', compact('response'));
+        return view('pages.crypto_money_history', compact('response'));
     }
     public function users_gestion()
     {
         return view('pages.users_gestion');
     }
-    public function getApi()
+    // API Calls
+    public function getEuroCurrencyPrix()
     {
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->request('GET', 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=EUR');
-        return $response->getBody(); // '{"id": 1420053, "name": "guzzle", ...}'
-// un requete par currency
-// toute mes currency a un instant t
+        $response = $client->request('GET', 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,ADA,XEM,XLM,MIOTA,DASH,LTC&tsyms=EUR');
+        return $response->getBody();
 
-        /*      // Send an asynchronous request.
-              $request = new \GuzzleHttp\Psr7\Request('GET', 'http://httpbin.org');
-              $promise = $client->sendAsync($request)->then(function ($response) {
-
-              });
-
-              $promise->wait();
-          */    //return view('pages.home');
 
     }
-    public function getHistory($currency)
+    public function getCurrencyPrixHistory($currency)
     {
         $client = new \GuzzleHttp\Client();
         $response = $client->request('GET', 'https://min-api.cryptocompare.com/data/v2/histoday?fsym='.$currency.'&tsym=EUR&limit=30');
-        return $response->getBody(); // '{"id": 1420053, "name": "guzzle", ...}'
+        return $response->getBody();
     }
 }
