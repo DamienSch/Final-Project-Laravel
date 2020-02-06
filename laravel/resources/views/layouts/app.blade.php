@@ -27,7 +27,6 @@
 <body>
     <div id="app" class="">
         @include('include.navbar')
-
         <main class="py-4">
             @if(Route::has('register'))
                 <div class="container">
