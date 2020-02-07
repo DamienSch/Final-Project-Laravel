@@ -10,7 +10,7 @@ class CryptomoneysTableSeeder extends Seeder
      *
      * @return void
      */
-    private $table = 'cryptomoneys';@
+    private $table = 'cryptomoneys';
 
     public function run()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,6 +30,7 @@ class HomeController extends Controller
     {
         return view('pages.home', compact('response'));
     }
+
     public function crypto_moneys()
     {
         $getApiBody = json_decode($this->getEuroCurrencyPrix(), true);
@@ -39,7 +41,7 @@ class HomeController extends Controller
         }
         return view('pages.crypto_moneys', compact('response','cryptoIds'));
     }
-    public function bitcoin_history(Request $request)
+    public function currency_history(Request $request)
     {
         $getApiBody = json_decode($this->getCurrencyPrixHistory($request->currency));
         $response = $getApiBody->Data->Data;
@@ -51,11 +53,6 @@ class HomeController extends Controller
         // select currency name form currency api id
         $currency_api_id = DB::table('cryptomoneys')->select('currency_name')->where('API_id', '=', $request->currency)->get();
         return view('pages.crypto_money_history', compact('response','currency_prices','dates','currency_api_id'));
-    }
-
-    public function users_gestion()
-    {
-        return view('pages.users_gestion');
     }
     // API Calls
     public function getEuroCurrencyPrix()
