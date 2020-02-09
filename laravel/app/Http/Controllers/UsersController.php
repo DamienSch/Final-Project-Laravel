@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 
 class UsersController extends Controller
@@ -17,7 +17,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('pages.users_gestion')->with('users',$users);
+        return view('users.users_gestion')->with('users',$users);
     }
 
     /**
@@ -27,7 +27,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('pages.create_users');
+        return view('users.create_users');
     }
 
     /**
@@ -38,7 +38,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+        $users = new User;
+        $users->name = $request->input('name');
+        $users->email = $request->input('email');
+        $users->status = $request->input('status');
+        $users->fill([
+            'password' => Hash::make($request->newPassword)
+        ]);
+        $users->save();
+        return redirect('/users_gestion')->with('success', 'Votre utilisateur a été créé avec succès');
+
     }
 
     /**
@@ -49,7 +62,8 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('users.edit_user')->with('user',$user);
     }
 
     /**
@@ -60,7 +74,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::find($id);
+        return view('users.edit_user')->with('users',$users);
+
     }
 
     /**
@@ -72,7 +88,19 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+        $users = User::find($id);
+        $users->name = $request->input('name');
+        $users->email = $request->input('email');
+        $users->status = $request->input('status');
+        $users->fill([
+            'password' => Hash::make($request->newPassword)
+        ]);
+        $users->save();
+        return redirect('/users_gestion')->with('success', 'Votre utilisateur a été mis à jour avec succès');
     }
 
     /**
@@ -83,6 +111,8 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/users_gestion')->with('success', 'l\'utilisateur '.$user->name.' à bien été supprimé');
     }
 }

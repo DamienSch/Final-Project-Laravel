@@ -39,7 +39,7 @@ class HomeController extends Controller
         foreach ($this->API_DB_ids as $currency_api_id) {
             $cryptoIds[$currency_api_id->API_id] = $currency_api_id->currency_name;
         }
-        return view('pages.crypto_moneys', compact('response','cryptoIds'));
+        return view('cryptomoneys.crypto_moneys', compact('response','cryptoIds'));
     }
     public function currency_history(Request $request)
     {
@@ -52,7 +52,7 @@ class HomeController extends Controller
         }
         // select currency name form currency api id
         $currency_api_id = DB::table('cryptomoneys')->select('currency_name')->where('API_id', '=', $request->currency)->get();
-        return view('pages.crypto_money_history', compact('response','currency_prices','dates','currency_api_id'));
+        return view('cryptomoneys.crypto_money_history', compact('response','currency_prices','dates','currency_api_id'));
     }
     // API Calls
     public function getEuroCurrencyPrix()

@@ -52,6 +52,7 @@
                                             {{ session('status') }}
                                         </div>
                                     @endif
+                                    @include('include.errors')
                                     @yield('content')
                                 </div>
                             </div>
