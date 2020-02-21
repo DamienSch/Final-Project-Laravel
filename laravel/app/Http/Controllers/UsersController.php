@@ -14,9 +14,10 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('created_at', 'desc')->paginate(5);
         return view('users.users_gestion')->with('users',$users);
     }
 

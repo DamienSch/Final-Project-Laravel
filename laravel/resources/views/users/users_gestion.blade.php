@@ -5,6 +5,7 @@
     <div class="container d-flex justify-content-end mb-3 col-md-12">
         <a role="button" class="btn btn-outline-success" href="{{ route('users_gestion/create') }}">Créer un utilisateur</a>
     </div>
+    @if(count($users) >= 1)
     <table class="table table-hover">
         <thead>
         <tr>
@@ -32,4 +33,13 @@
         @endforeach
         </tbody>
     </table>
+    <!-- Pagination -->
+    <div class="col-12">
+        <div class="mx-auto d-flex pagination container justify-content-center">
+            {{$users->links()}}
+        </div>
+    </div>
+    @else
+        <p class="text-muted">vous n'avez pas encore d'utilisateurs ...</p>
+    @endif
 @endsection
