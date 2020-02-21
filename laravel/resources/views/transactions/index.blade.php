@@ -7,19 +7,25 @@
             <thead>
             <tr>
                 <th scope="col">Nom</th>
-                <th scope="col">Date d'achat</th>
-                <th scope="col">Prix d'achat</th>
                 <th scope="col">Valeur actuelle</th>
+                <th scope="col">Prix d'achat</th>
+                <th scope="col">Date d'achat</th>
                 <th scope="col" class="text-right">Vendre</th>
             </tr>
             </thead>
             <tbody>
+
             @foreach($transactions as $trans)
+                <?php
+                $CyrrencyName = $trans->currency_value;
+                $ApiId = $currencysDB[$CyrrencyName]->id -1;
+                $ApiName = $currencysDB[$ApiId]->API_id;
+                ?>
                 <tr>
-                    <td>{{$trans->crypto_id}}</td>
+                    <td>{{$currencysDB[$CyrrencyName]->currency_name}}</td>
+                    <td>{{$response->$ApiName->EUR}}&nbsp;€</td>
+                    <td>{{$trans->expense_amount}}&nbsp;€</td>
                     <td>{{$trans->date_of_purchase}}</td>
-                    <td>{{$trans->expense_amount}}</td>
-                    <td>{{$trans->currency_value}}</td>
                     <td><a href=""></a></td>
                 </tr>
             @endforeach

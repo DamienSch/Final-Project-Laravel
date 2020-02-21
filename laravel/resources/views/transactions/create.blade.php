@@ -29,8 +29,8 @@
     </div>
     @foreach( $response as $currency => $val)
         <div class="form-group">
-            {!! Form::label('expense_amount', 'Prix d\'achat', ['class' => 'control-label']) !!}
-            {!! Form::number('expense_amount', $val->EUR,['step' => '0.01','type' => 'number', 'min' => 0]); !!}
+            {!! Form::hidden('expense_amount', $val->EUR,['step' => '0.01','type' => 'number', 'min' => 0]); !!}
+            <p>Prix unitaire : {{$val->EUR}}&nbsp;€</p>
         </div>
     @endforeach
     <div class="form-group">
@@ -38,16 +38,13 @@
         {!! Form::number('sale_amount', 'value'); !!}
     </div>
     <div class="form-group">
-        {!! Form::label('currency_value', 'Valeur de la cryptomonnaie', ['class' => 'control-label']) !!}
-        {!! Form::number('currency_value', 'value'); !!}
+        {!! Form::hidden('soldes', '0'); !!}
     </div>
     <div class="form-group">
-        {!! Form::label('soldes', 'A vendre', ['class' => 'control-label']) !!}
-        {!! Form::number('soldes', '0'); !!}
+        {!! Form::hidden('currency_value', '0'); !!}
     </div>
     <div class="form-group">
-        {!! Form::label('date_of_purchase', 'Date d\'achat', ['class' => 'control-label']) !!}
-        {{ Form::date('date_of_purchase', date('Y-m-d'))}}
+        {{ Form::hidden('date_of_purchase', date('Y-m-d'))}}
     </div>
     <hr>
     <div class="text-center">

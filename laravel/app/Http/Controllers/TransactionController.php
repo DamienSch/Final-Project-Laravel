@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cryptomoney;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +18,12 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::orderBy('date_of_purchase', 'desc')->paginate(5);
-        return view('transactions.index')->with('transactions',$transactions);
+        $currencys = Cryptomoney::all();
+        $callAPI = new \GuzzleHttp\Client();
+        $response = json_decode($callAPI->request('GET', 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,ADA,LTC,XEM,XLM,MIOTA,DASH&tsyms=EUR')->getBody());
+        $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->get();
+        $transactions = Transaction::orderBy('created_at', 'desc')->paginate(5);
+        return view('transactions.index',compact('transactions','currencys','currencysDB','response'));
     }
 
     /**
