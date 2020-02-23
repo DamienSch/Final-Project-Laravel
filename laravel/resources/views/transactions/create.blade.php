@@ -4,7 +4,7 @@
     <h3 class="text-center">Acheter une cryptomonaie</h3>
     {!! Form::open(['action' => 'TransactionController@store', 'method' => 'post']) !!}
     <div class="form-group">
-        {!! Form::hidden('user_id', $user->id, ['class' => 'form-control','placeholder' => 'user id'])!!}
+        {!! Form::hidden('user_id', $user->id, ['class' => 'form-control','placeholder' => 'user_id'])!!}
     </div>
     <div class="form-group">
         {!! Form::label('crypto_id', 'Cryptomonnaie', ['class' => 'control-label']) !!}

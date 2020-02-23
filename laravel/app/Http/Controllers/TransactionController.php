@@ -36,7 +36,7 @@ class TransactionController extends Controller
     {
         $callAPI = new \GuzzleHttp\Client();
         $user = Auth::user();
-        $response = json_decode($callAPI->request('GET', 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC&tsyms=EUR')->getBody());
+        $response = json_decode($callAPI->request('GET', 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,ADA,LTC,XEM,XLM,MIOTA,DASH&tsyms=EUR')->getBody());
         return view('transactions.create', compact('response', 'user'));
     }
 
