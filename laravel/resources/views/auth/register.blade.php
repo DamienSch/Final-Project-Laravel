@@ -38,7 +38,7 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <input id="status" type="hidden" class="form-control" name="status" value="{{'client'}}" required autocomplete="status">
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 

@@ -22,8 +22,10 @@ class TransactionController extends Controller
         $callAPI = new \GuzzleHttp\Client();
         $response = json_decode($callAPI->request('GET', 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,ADA,LTC,XEM,XLM,MIOTA,DASH&tsyms=EUR')->getBody());
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->get();
+        $transactionID = DB::table('transactions')->select('id')->get();
+        $user = Auth::user();
         $transactions = Transaction::orderBy('created_at', 'desc')->paginate(5);
-        return view('transactions.index',compact('transactions','currencys','currencysDB','response'));
+        return view('transactions.index',compact('transactions','currencys','currencysDB','response', 'user','transactionID'));
     }
 
     /**

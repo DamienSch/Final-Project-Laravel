@@ -19,7 +19,7 @@ class CheckClient
         if ( !auth()->guest() &&Auth::user()->userStatus() == 'client') {
             return $next($request);
         } elseif (auth()->guest()) {
-            return redirect('/');
+            return redirect('/login');
         }
         else {
             return redirect('/users_gestion');

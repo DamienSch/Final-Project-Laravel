@@ -19,7 +19,7 @@ class CheckAdmin
         if (!auth()->guest() && Auth::user()->userStatus() == 'admin') {
             return $next($request);
         } elseif (auth()->guest()) {
-            return redirect('/');
+            return redirect('/login');
         }
         else {
             return redirect('/home');
