@@ -6,22 +6,21 @@
     <div class="form-group">
         {!! Form::hidden('crypto_id',$currencysDB[0]->id)!!}
     </div>
+    {{-- Montant des dépenses --}}
     <div class="form-group">
-        {!! Form::label('purchase_quantity', 'Quantité', ['class' => 'control-label']) !!}
-        {!! Form::number('purchase_quantity', 'value',['type' => 'number', 'min' => 1,]); !!}
+        {!! Form::label('expense_amount', 'Valeur en euro à investir', ['class' => 'control-label']) !!}
+        {!! Form::number('expense_amount', 'value',['type' => 'number', 'min' => 1, 'placeholder' => '... €']); !!}
     </div>
-    <div class="form-group">
-        {!! Form::label('sale_amount', 'Montant de la vente', ['class' => 'control-label']) !!}
-        {!! Form::number('sale_amount', 'value'); !!}
-    </div>
-    <div class="form-group">
-        {!! Form::hidden('expense_amount', '0'); !!}
-    </div>
+    {{-- Valeur de la monnaie --}}
     <div class="form-group">
         {!! Form::hidden('currency_value', '0'); !!}
     </div>
+    {{-- Date d'achat --}}
     <div class="form-group">
         {{ Form::hidden('date_of_purchase', date('Y-m-d'))}}
+    </div>
+    <div class="form-group">
+        {{ Form::hidden('purchase_quantity', '0')}}
     </div>
     <hr>
     <div class="text-center">

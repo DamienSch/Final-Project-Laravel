@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Cryptomoney;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,12 +22,9 @@ class TransactionController extends Controller
     public function index()
     {
         $response = $this->callApi();
-        $currencys = Cryptomoney::all();
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->get();
-        $transactionID = DB::table('transactions')->select('*')->where('user_id','=',Auth::id())->get();
-        $user = Auth::user();
-        $transactions = Transaction::orderBy('created_at', 'desc')->paginate(5);
-        return view('transactions.index',compact('transactions','currencys','currencysDB','response', 'user','transactionID'));
+        $transactionID = DB::table('transactions')->orderBy('created_at', 'desc')->select('*')->where('user_id','=',Auth::id())->get();
+        return view('transactions.index',compact('currencysDB','response','transactionID'));
     }
 
     /**
@@ -44,7 +40,6 @@ class TransactionController extends Controller
         $user = Auth::user();
         $transaction = Transaction::find($id);
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->where('API_ID','=',$id)->get();
-
         return view('transactions.create', compact('response', 'user', 'currencysDB','transaction'));
     }
 
@@ -56,6 +51,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request )
     {
+        $response = $this->callApi();
         $id = $request->session()->get('currencyId');
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->where('API_ID','=',$id)->get();
         $this->validate($request , [
@@ -63,11 +59,17 @@ class TransactionController extends Controller
         $transactions = new Transaction;
         $transactions->user_id = Auth::id();
         $transactions->crypto_id = $currencysDB[0]->id;
-        $transactions->purchase_quantity = $request->input('purchase_quantity');
+        // Quantité d'achat
+        $transactions->purchase_quantity = $request->input('expense_amount') / $response->$id->EUR;
+        // Montant des dépenses
         $transactions->expense_amount = $request->input('expense_amount');
-        $transactions->sale_amount = $request->input('sale_amount');
-        $transactions->currency_value = $request->input('currency_value');
+        // Montant de la vente
+        $transactions->sale_amount = $response->$id->EUR;
+        // Valeur de la monnaie
+        $transactions->currency_value = $response->$id->EUR;
+        // Non vendu
         $transactions->soldes = 0;
+        // Date d'achat
         $transactions->date_of_purchase = $request->input('date_of_purchase');
         $transactions->save();
         return redirect('/home')->with('success', 'Votre achat a été effectué avec succès');
