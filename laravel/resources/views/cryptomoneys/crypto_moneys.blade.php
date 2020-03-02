@@ -8,7 +8,8 @@
             <th scope="col">Cryptomonnaies</th>
             <th scope="col">Sigles</th>
             <th scope="col">Prix</th>
-            <th scope="col">Historique</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -18,6 +19,8 @@
                     <td>{{$currency}}</td>
                     <td>{{$val['EUR']}}&nbsp;€</td>
                     <td><a href="{{ route('currency_history', $currency )}}">historique</a></td>
+                    <td><a href="{{ route('transaction.create', $currency )}}" type="button" class="btn btn-outline-success">Acheter</a></td>
+
                 </tr>
             @endforeach
         </tbody>
