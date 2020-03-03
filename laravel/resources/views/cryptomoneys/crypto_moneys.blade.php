@@ -1,25 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="text-center">Les Cryptomonnaies</h3>
+    <h3 class="text-center mb-3">Les Cryptomonnaies</h3>
     <table class="table table-hover">
         <thead>
         <tr>
-            <th scope="col">Cryptomonnaies</th>
-            <th scope="col">Sigles</th>
-            <th scope="col">Prix</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th class="text-center" scope="col">Cryptomonnaies</th>
+            <th class="text-center" scope="col">Sigles</th>
+            <th class="text-center" scope="col">Prix</th>
+            <th class="text-center" scope="col"></th>
+            @if (Auth::user()->status == 'client')
+                <th class="text-center" scope="col"></th>
+            @endif
         </tr>
         </thead>
         <tbody>
             @foreach( $response as $currency => $val)
                 <tr>
-                    <td>{{$cryptoIds[$currency]}}</td>
-                    <td>{{$currency}}</td>
-                    <td>{{$val['EUR']}}&nbsp;€</td>
-                    <td><a href="{{ route('currency_history', $currency )}}">historique</a></td>
-                    <td><a href="{{ route('transaction.create', $currency )}}" type="button" class="btn btn-outline-success">Acheter</a></td>
+                    <td class="text-center">{{$cryptoIds[$currency]}}</td>
+                    <td class="text-center">{{$currency}}</td>
+                    <td class="text-center">{{$val['EUR']}}&nbsp;€</td>
+                    <td class="text-center"><a href="{{ route('currency_history', $currency )}}">historique</a></td>
+                    @if (Auth::user()->status == 'client')
+                        <td class="text-center"><a href="{{ route('transaction.create', $currency )}}" type="button" class="btn btn-outline-success">Acheter</a></td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>

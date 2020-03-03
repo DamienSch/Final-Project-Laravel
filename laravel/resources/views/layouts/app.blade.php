@@ -29,28 +29,29 @@
         @include('include.navbar')
         <main class="py-4">
             @if(Route::has('register'))
-                <div class="container">
+                <div class="p-4">
                     <div class="row justify-content-center">
-                        <aside class="container col-md-4">
+                        <aside class="container col-md-3">
                             <div class="card">
                                 <div class="card-header">Menu</div>
                                 <div class="card-body">
                                     <ul class="list-group">
-                                        {{print_r(Auth::user()->status)}}
-                                        @if (Auth::user()->status = 'admin')
-
-                                            <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('home') }}">Accueil</a></li>
+                                        @if (Auth::user()->status == 'client')
+                                            <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('home') }}">Mes transactions</a></li>
                                         @endif
-                                        <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('users_gestion') }}">Gestions des utilisateurs</a></li>
+                                        @if (Auth::user()->status == 'admin')
+                                            <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('users_gestion') }}">Gestions des utilisateurs</a></li>
+                                        @endif
                                         <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('crypto_moneys') }}">Cryptomonnaies</a></li>
+                                        <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="">Mes données personnelles</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </aside>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <div class="card">
                                 <div class="card-header">Tableau de bord</div>
-                                <div class="card-body">
+                                <div class="card-body overflow-auto">
                                     @if (session('status'))
                                         <div class="alert alert-success" role="alert">
                                             {{ session('status') }}
