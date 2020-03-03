@@ -41,9 +41,11 @@ class UsersController extends Controller
         $users = User::find(Auth::user()->id);
         $users->name = $request->input('name');
         $users->email = $request->input('email');
-        $users->fill([
-            'password' => Hash::make($request->input('password'))
-        ]);
+        if ($request->input('password') !== null) {
+            $users->fill([
+                'password' => Hash::make($request->input('password'))
+            ]);
+        }
         $users->save();
         return redirect('/account_management')->with('success', 'Votre compte a été mis à jour avec succès');
     }
