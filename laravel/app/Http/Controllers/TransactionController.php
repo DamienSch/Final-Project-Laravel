@@ -61,7 +61,7 @@ class TransactionController extends Controller
         $transactions->crypto_id = $currencysDB[0]->id;
         $transactions->purchase_quantity = $request->input('expense_amount') / $response->$id->EUR;
         $transactions->expense_amount = $request->input('expense_amount');
-        $transactions->sale_amount = $response->$id->EUR;
+        $transactions->sale_amount = NULL;
         $transactions->currency_value = $response->$id->EUR;
         $transactions->soldes = 0;
         $transactions->date_of_purchase = date('Y-m-d');

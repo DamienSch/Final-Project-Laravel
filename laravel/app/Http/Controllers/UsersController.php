@@ -28,6 +28,26 @@ class UsersController extends Controller
         return view('users.account_management', compact('selfData'));
     }
 
+    public function showPersonalData()
+    {
+        $user = User::find(Auth::user()->id);
+        return view('users.account_management_edit')->with('user',$user);
+    }
+
+    public function updateAccount(Request $request)
+    {
+        $this->validate($request, [
+        ]);
+        $users = User::find(Auth::user()->id);
+        $users->name = $request->input('name');
+        $users->email = $request->input('email');
+        $users->fill([
+            'password' => Hash::make($request->input('password'))
+        ]);
+        $users->save();
+        return redirect('/account_management')->with('success', 'Votre compte a été mis à jour avec succès');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

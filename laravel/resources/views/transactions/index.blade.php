@@ -29,11 +29,11 @@
                 <td class="text-center">{{round($trans->purchase_quantity, 2)}}&nbsp;{{$currencysDB[$crypto_id]->API_id}}</td>
                 <td class="text-center">{{$response->$crypto_id_api->EUR}}&nbsp;€</td>
                 <td class="text-center">{{$trans->expense_amount}}&nbsp;€</td>
-                <td class="text-center">{{$trans->sale_amount}}&nbsp;€</td>
-                @if($response->$crypto_id_api->EUR - $trans->sale_amount >= 0)
-                    <td class="text-center" style="color: green">{{round($response->$crypto_id_api->EUR - $trans->sale_amount,2)}}&nbsp;€</td>
+                <td class="text-center">{{$trans->currency_value}}&nbsp;€</td>
+                @if($response->$crypto_id_api->EUR - $trans->currency_value >= 0)
+                    <td class="text-center" style="color: green">{{round($response->$crypto_id_api->EUR - $trans->currency_value,2)}}&nbsp;€</td>
                 @else
-                    <td class="text-center" style="color: darkred">{{round($response->$crypto_id_api->EUR - $trans->sale_amount,2)}}&nbsp;€</td>
+                    <td class="text-center" style="color: darkred">{{round($response->$crypto_id_api->EUR - $trans->currency_value,2)}}&nbsp;€</td>
                 @endif
                 <td class="text-center">{{$trans->date_of_purchase}}</td>
                 @if ($trans->soldes == 0)
