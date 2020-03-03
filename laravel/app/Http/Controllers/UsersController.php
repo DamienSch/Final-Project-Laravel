@@ -56,7 +56,7 @@ class UsersController extends Controller
         $users->email = $request->input('email');
         $users->status = $request->input('status');
         $users->fill([
-            'password' => Hash::make($request->newPassword)
+            'password' => Hash::make($request->input('password'))
         ]);
         $users->save();
         return redirect('/users_gestion')->with('success', 'Votre utilisateur a été créé avec succès');
