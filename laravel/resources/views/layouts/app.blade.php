@@ -36,7 +36,11 @@
                                 <div class="card-header">Menu</div>
                                 <div class="card-body">
                                     <ul class="list-group">
-                                        <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('home') }}">Accueil</a></li>
+                                        {{print_r(Auth::user()->status)}}
+                                        @if (Auth::user()->status = 'admin')
+
+                                            <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('home') }}">Accueil</a></li>
+                                        @endif
                                         <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('users_gestion') }}">Gestions des utilisateurs</a></li>
                                         <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('crypto_moneys') }}">Cryptomonnaies</a></li>
                                     </ul>

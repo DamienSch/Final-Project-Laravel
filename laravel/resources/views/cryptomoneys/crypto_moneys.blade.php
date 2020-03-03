@@ -20,7 +20,6 @@
                     <td>{{$val['EUR']}}&nbsp;€</td>
                     <td><a href="{{ route('currency_history', $currency )}}">historique</a></td>
                     <td><a href="{{ route('transaction.create', $currency )}}" type="button" class="btn btn-outline-success">Acheter</a></td>
-
                 </tr>
             @endforeach
         </tbody>

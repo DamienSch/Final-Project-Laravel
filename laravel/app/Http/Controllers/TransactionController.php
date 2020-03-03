@@ -23,7 +23,7 @@ class TransactionController extends Controller
     {
         $response = $this->callApi();
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->get();
-        $transactionID = DB::table('transactions')->orderBy('created_at', 'desc')->select('*')->where('user_id','=',Auth::id())->get();
+        $transactionID = DB::table('transactions')->orderBy('created_at', 'desc')->select('*')->where('user_id','=',Auth::id())->paginate(5);
         return view('transactions.index',compact('currencysDB','response','transactionID'));
     }
 
@@ -59,18 +59,12 @@ class TransactionController extends Controller
         $transactions = new Transaction;
         $transactions->user_id = Auth::id();
         $transactions->crypto_id = $currencysDB[0]->id;
-        // Quantité d'achat
         $transactions->purchase_quantity = $request->input('expense_amount') / $response->$id->EUR;
-        // Montant des dépenses
         $transactions->expense_amount = $request->input('expense_amount');
-        // Montant de la vente
         $transactions->sale_amount = $response->$id->EUR;
-        // Valeur de la monnaie
         $transactions->currency_value = $response->$id->EUR;
-        // Non vendu
         $transactions->soldes = 0;
-        // Date d'achat
-        $transactions->date_of_purchase = $request->input('date_of_purchase');
+        $transactions->date_of_purchase = date('Y-m-d');
         $transactions->save();
         return redirect('/home')->with('success', 'Votre achat a été effectué avec succès');
     }

@@ -2,13 +2,16 @@
 
 @section('content')
     <h3 class="text-center">Mes transactions</h3>
-
+    <div class="d-flex flex-row-reverse bd-highlight mb-3">
+        <a href="{{ route('crypto_moneys')}}" type="button" class="btn btn-outline-success">Acheter une Cryptomonnaie</a>
+    </div>
     <table class="table table-hover">
         <thead>
         <tr>
             <th class="text-center" scope="col">Nom</th>
             <th class="text-center" scope="col">Quantitée</th>
             <th class="text-center" scope="col">Valeur actuelle</th>
+            <th class="text-center" scope="col">Valeur investi</th>
             <th class="text-center" scope="col">Prix d'achat</th>
             <th class="text-center" scope="col">Plus-value</th>
             <th class="text-center" scope="col">Date d'achat</th>
@@ -25,6 +28,7 @@
                 <td class="text-center">{{$currencysDB[$crypto_id]->currency_name}}</td>
                 <td class="text-center">{{round($trans->purchase_quantity, 2)}}&nbsp;{{$currencysDB[$crypto_id]->API_id}}</td>
                 <td class="text-center">{{$response->$crypto_id_api->EUR}}&nbsp;€</td>
+                <td class="text-center">{{$trans->expense_amount}}&nbsp;€</td>
                 <td class="text-center">{{$trans->sale_amount}}&nbsp;€</td>
                 @if($response->$crypto_id_api->EUR - $trans->sale_amount >= 0)
                     <td class="text-center" style="color: green">{{round($response->$crypto_id_api->EUR - $trans->sale_amount,2)}}&nbsp;€</td>
@@ -44,7 +48,7 @@
     <!-- Pagination -->
     <div class="col-12">
         <div class="mx-auto d-flex pagination container justify-content-center">
-
+            {{$transactionID->links()}}
         </div>
     </div>
     @if (@count($transactionID) < 1)

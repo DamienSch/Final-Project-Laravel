@@ -16,9 +16,6 @@ Route::resource('users_gestion', 'UsersController');
 
 Auth::routes();
 
-
-
-
 Route::get('/crypto_moneys', 'HomeController@crypto_moneys')->name('crypto_moneys');
 Route::get('/currency_history/{currency}', 'HomeController@currency_history')->name('currency_history');
 Route::group(['middleware' => ['auth' => 'CheckAdmin']], function () {
