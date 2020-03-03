@@ -18,6 +18,7 @@ Auth::routes();
 
 Route::get('/crypto_moneys', 'HomeController@crypto_moneys')->name('crypto_moneys');
 Route::get('/currency_history/{currency}', 'HomeController@currency_history')->name('currency_history');
+Route::get('/account_management', 'UsersController@editPersonalData')->name('account_management');
 Route::group(['middleware' => ['auth' => 'CheckAdmin']], function () {
     Route::get('/users_gestion', 'UsersController@index')->name('users_gestion');
     Route::get('/users_gestion/create', 'UsersController@create')->name('users_gestion/create');

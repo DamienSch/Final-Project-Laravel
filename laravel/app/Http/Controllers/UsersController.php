@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -19,6 +20,12 @@ class UsersController extends Controller
     {
         $users = User::orderBy('created_at', 'desc')->paginate(5);
         return view('users.users_gestion')->with('users',$users);
+    }
+
+    public function editPersonalData()
+    {
+        $selfData = DB::table('users')->select('*')->where('id','=',Auth::user()->id)->get();
+        return view('users.account_management', compact('selfData'));
     }
 
     /**
