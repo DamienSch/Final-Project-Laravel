@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="text-right">Mon solde est de : <span class="text-success" >{{$moneyAccount}}&nbsp;€</span></div>
+    <hr class="mt-1">
     <h3 class="text-center">Valeur du {{$currency_api_id[0]->currency_name}} des 30 derniers jours</h3>
     <canvas id="myChart" width="400" height="400"></canvas>
     <script>

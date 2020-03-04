@@ -6,10 +6,12 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Traits\Solde;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
+    use Solde;
     /**
      * Display a listing of the resource.
      *
@@ -24,14 +26,16 @@ class UsersController extends Controller
 
     public function editPersonalData()
     {
+        $moneyAccount = $this->moneyAccount();
         $selfData = DB::table('users')->select('*')->where('id','=',Auth::user()->id)->get();
-        return view('users.account_management', compact('selfData'));
+        return view('users.account_management', compact('selfData','moneyAccount'));
     }
 
     public function showPersonalData()
     {
+        $moneyAccount = $this->moneyAccount();
         $user = User::find(Auth::user()->id);
-        return view('users.account_management_edit')->with('user',$user);
+        return view('users.account_management_edit', compact('user','moneyAccount'));
     }
 
     public function updateAccount(Request $request)

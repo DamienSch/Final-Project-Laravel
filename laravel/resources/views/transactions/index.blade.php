@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="text-right">Mon solde est de : <span class="text-success" >{{$moneyAccount}}&nbsp;€</span></div>
+    <hr class="mt-1">
     <h3 class="text-center">Mes transactions</h3>
     <div class="d-flex flex-row-reverse bd-highlight mb-3">
         <a href="{{ route('crypto_moneys')}}" type="button" class="btn btn-outline-success">Acheter une Cryptomonnaie</a>

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="text-right">Mon solde est de : <span class="text-success" >{{$moneyAccount}}&nbsp;€</span></div>
+    <hr class="mt-1">
     <h3 class="text-center">Modification mes données personnelles</h3>
     {!! Form::open(['action' => ['UsersController@updateAccount'],Auth::user()->id, 'method' => 'post']) !!}
     <div class="form-group">

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Traits\Solde;
+
 
 
 class HomeController extends Controller
 {
+    use Solde;
     /**
      * Create a new controller instance.
      *
@@ -33,16 +36,18 @@ class HomeController extends Controller
 
     public function crypto_moneys()
     {
+        $moneyAccount = $this->moneyAccount();
         $getApiBody = json_decode($this->getEuroCurrencyPrix(), true);
         $response = $getApiBody;
         // get all currency api id
         foreach ($this->API_DB_ids as $currency_api_id) {
             $cryptoIds[$currency_api_id->API_id] = $currency_api_id->currency_name;
         }
-        return view('cryptomoneys.crypto_moneys', compact('response','cryptoIds'));
+        return view('cryptomoneys.crypto_moneys', compact('response','cryptoIds','moneyAccount'));
     }
     public function currency_history(Request $request)
     {
+        $moneyAccount = $this->moneyAccount();
         $getApiBody = json_decode($this->getCurrencyPrixHistory($request->currency));
         $response = $getApiBody->Data->Data;
         // find currency name from currency api id
@@ -52,7 +57,7 @@ class HomeController extends Controller
         }
         // select currency name form currency api id
         $currency_api_id = DB::table('cryptomoneys')->select('currency_name')->where('API_id', '=', $request->currency)->get();
-        return view('cryptomoneys.crypto_money_history', compact('response','currency_prices','dates','currency_api_id'));
+        return view('cryptomoneys.crypto_money_history', compact('response','currency_prices','dates','currency_api_id','moneyAccount'));
     }
     // API Calls
     public function getEuroCurrencyPrix()

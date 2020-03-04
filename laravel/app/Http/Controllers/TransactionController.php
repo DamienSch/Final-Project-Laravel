@@ -6,26 +6,31 @@ use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use App\Http\Controllers\Traits\Solde;
 use Auth;
 
 
 class TransactionController extends Controller
 {
+    use Solde;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function callApi() {
         $callAPI = new \GuzzleHttp\Client();
         return json_decode($callAPI->request('GET', 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,ADA,LTC,XEM,XLM,MIOTA,DASH&tsyms=EUR')->getBody());
     }
+
     public function index()
     {
+        $moneyAccount = $this->moneyAccount();
         $response = $this->callApi();
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->get();
         $transactionID = DB::table('transactions')->orderBy('created_at', 'desc')->select('*')->where('user_id','=',Auth::id())->paginate(5);
-        return view('transactions.index',compact('currencysDB','response','transactionID'));
+        return view('transactions.index',compact('currencysDB','response','transactionID','moneyAccount'));
     }
 
     /**
@@ -37,11 +42,12 @@ class TransactionController extends Controller
     public function create($id)
     {
         session(['currencyId' => $id]);
+        $moneyAccount = $this->moneyAccount();
         $response = $this->callApi();
         $user = Auth::user();
         $transaction = Transaction::find($id);
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->where('API_ID','=',$id)->get();
-        return view('transactions.create', compact('response', 'user', 'currencysDB','transaction'));
+        return view('transactions.create', compact('response', 'user', 'currencysDB','transaction','moneyAccount'));
     }
 
     /**
