@@ -70,23 +70,24 @@ class TransactionController extends Controller
         return redirect('/home')->with('success', 'Votre achat a été effectué avec succès');
     }
 
-    public function sellTransaction(Request $request )
+    public function sellTransaction(Request $request)
     {
         $response = $this->callApi();
         $id = $request->session()->get('currencyId');
-        $transactionid = 2;
-        $transactionsDB = DB::table('transactions')->select('*')->where('user_id','=',Auth::user()->id)->get();
+        $transactionid = $request->transId;
+        $transactionsDB = DB::table('transactions')->select('*')->where('id','=',$transactionid)->get();
         $this->validate($request , [
         ]);
         $transactions = Transaction::find($transactionid);
-        $transactions->user_id = Auth::id();
-        $transactions->crypto_id = $transactionsDB[$transactionid]->id;
-        $transactions->purchase_quantity = $transactionsDB[$transactionid]->purchase_quantity;
-        $transactions->expense_amount = $transactionsDB[$transactionid]->expense_amount;
+        //dd($transactions);
+        $transactions->user_id = Auth::user()->id;
+        $transactions->crypto_id = $transactionsDB[0]->crypto_id;
+        $transactions->purchase_quantity = $transactionsDB[0]->purchase_quantity;
+        $transactions->expense_amount = $transactionsDB[0]->expense_amount;
         $transactions->sale_amount = $response->$id->EUR;
-        $transactions->currency_value = $transactionsDB[$transactionid]->currency_value;
+        $transactions->currency_value = $transactionsDB[0]->currency_value;
         $transactions->soldes = 1;
-        $transactions->date_of_purchase = $transactionsDB[$transactionid]->date_of_purchase;
+        $transactions->date_of_purchase = $transactionsDB[0]->date_of_purchase;
         $transactions->date_of_sale = Carbon::now();
         $transactions->save();
         return redirect('/home')->with('success', 'Votre vente a été effectué avec succès');

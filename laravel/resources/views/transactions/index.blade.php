@@ -62,8 +62,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                    {!! Form::open(['action' => ['TransactionController@sellTransaction'],$trans->id, 'method' => 'post']) !!}
-
+                                    {!! Form::open(['action' => ['TransactionController@sellTransaction', 'transId' => $trans->id],$trans->id, 'method' => 'post']) !!}
                                     {!! Form::submit('Confirmer la vente', ['class' => ' btn btn-primary']) !!}
                                     {!! Form::close() !!}
                                 </div>
