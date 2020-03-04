@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 use Auth;
 
 
@@ -64,9 +65,31 @@ class TransactionController extends Controller
         $transactions->sale_amount = NULL;
         $transactions->currency_value = $response->$id->EUR;
         $transactions->soldes = 0;
-        $transactions->date_of_purchase = date('Y-m-d');
+        $transactions->date_of_purchase = Carbon::now();
         $transactions->save();
         return redirect('/home')->with('success', 'Votre achat a été effectué avec succès');
+    }
+
+    public function sellTransaction(Request $request )
+    {
+        $response = $this->callApi();
+        $id = $request->session()->get('currencyId');
+        $transactionid = 2;
+        $transactionsDB = DB::table('transactions')->select('*')->where('user_id','=',Auth::user()->id)->get();
+        $this->validate($request , [
+        ]);
+        $transactions = Transaction::find($transactionid);
+        $transactions->user_id = Auth::id();
+        $transactions->crypto_id = $transactionsDB[$transactionid]->id;
+        $transactions->purchase_quantity = $transactionsDB[$transactionid]->purchase_quantity;
+        $transactions->expense_amount = $transactionsDB[$transactionid]->expense_amount;
+        $transactions->sale_amount = $response->$id->EUR;
+        $transactions->currency_value = $transactionsDB[$transactionid]->currency_value;
+        $transactions->soldes = 1;
+        $transactions->date_of_purchase = $transactionsDB[$transactionid]->date_of_purchase;
+        $transactions->date_of_sale = Carbon::now();
+        $transactions->save();
+        return redirect('/home')->with('success', 'Votre vente a été effectué avec succès');
     }
 
     /**

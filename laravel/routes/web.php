@@ -21,6 +21,7 @@ Route::get('/currency_history/{currency}', 'HomeController@currency_history')->n
 Route::get('/account_management', 'UsersController@editPersonalData')->name('account_management');
 Route::get('/update_account', 'UsersController@showPersonalData')->name('update_account');
 Route::post('/updated_account', array('uses' => 'UsersController@updateAccount'))->name('updated_account');
+Route::post('/sellTransaction', array('uses' => 'TransactionController@sellTransaction'))->name('sellTransaction');
 
 Route::group(['middleware' => ['auth' => 'CheckAdmin']], function () {
     Route::get('/users_gestion', 'UsersController@index')->name('users_gestion');

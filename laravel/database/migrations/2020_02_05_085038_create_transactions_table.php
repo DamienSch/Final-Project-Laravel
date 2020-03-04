@@ -16,12 +16,12 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('crypto_id');
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('crypto_id')->references('id')->on('cryptomoneys');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('purchase_quantity');
             $table->string('expense_amount');
-            $table->string('sale_amount')->nullable();
+            $table->string('sale_amount');
             $table->string('currency_value');
             $table->boolean('soldes');
             $table->date('date_of_purchase')->nullable();

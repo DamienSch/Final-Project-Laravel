@@ -37,7 +37,39 @@
                 @endif
                 <td class="text-center">{{$trans->date_of_purchase}}</td>
                 @if ($trans->soldes == 0)
-                    <td class="text-center"><a class="btn btn-outline-primary" href="">Vendre</a></td>
+                    <!-- Button trigger modal -->
+                    <td class="text-center">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sell{{$trans->id}}">Vendre</button>
+                    </td>
+                    <!-- Modal -->
+                    <div class="modal fade" id="sell{{$trans->id}}" tabindex="-1" role="dialog" aria-labelledby="sell{{$trans->id}}Title" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="sell{{$trans->id}}Title">Vendre mes {{round($trans->purchase_quantity, 2)}} {{$currencysDB[$crypto_id]->currency_name}}&nbsp;?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Prix d'achat : {{$trans->currency_value}}&nbsp;€</p>
+                                    <p>Valeur actuel : {{$response->$crypto_id_api->EUR}}&nbsp;€</p>
+                                    @if($response->$crypto_id_api->EUR - $trans->currency_value >= 0)
+                                        <p>Plus value : <span class="lead" style="color: green">{{round($response->$crypto_id_api->EUR - $trans->currency_value,2)}}&nbsp;€</span></p>
+                                    @else
+                                        <p>Plus value : <span class="lead" style="color: darkred">{{round($response->$crypto_id_api->EUR - $trans->currency_value,2)}}&nbsp;€</span></p>
+                                    @endif
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                    {!! Form::open(['action' => ['TransactionController@sellTransaction'],$trans->id, 'method' => 'post']) !!}
+
+                                    {!! Form::submit('Confirmer la vente', ['class' => ' btn btn-primary']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @else
                     <td class="text-center"><button type="button" class="btn btn-secondary" disabled>Vendu</button></td>
                 @endif
