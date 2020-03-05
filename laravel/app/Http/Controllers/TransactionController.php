@@ -33,7 +33,7 @@ class TransactionController extends Controller
         // Get currency Database
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->get();
         // Get user transaction Database
-        $transactionID = DB::table('transactions')->orderBy('created_at', 'desc')->select('*')->where('user_id','=',Auth::id())->paginate(5);
+        $transactionID = DB::table('transactions')->orderBy('created_at', 'desc')->select('*')->where('user_id','=',Auth::id())->get();
         return view('transactions.index',compact('currencysDB','response','transactionID','moneyAccount'));
     }
 
