@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <a class="navbar-brand" href="{{ url('/') }}">
-        {{ config('app.name', 'Laravel') }}
+        {{ config('Bitchest', 'Bitchest') }}
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -12,11 +12,11 @@
             <!-- Authentication Links -->
             @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Connection') }}</a>
                 </li>
                 @if (Route::has('register'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a>
                     </li>
                 @endif
             @else
@@ -29,7 +29,7 @@
                     <a class="nav-link" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                        {{ __('Déconnection') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
