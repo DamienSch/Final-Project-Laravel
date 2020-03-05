@@ -27,19 +27,19 @@
             $crypto_id_api = $currencysDB[$crypto_id]->API_id
             ?>
             <tr>
-            {{-- if note sell --}}
+                {{-- if note sell --}}
                 @if ($trans->soldes == 0)
-                <td class="text-center">{{$currencysDB[$crypto_id]->currency_name}}</td>
-                <td class="text-center">{{round($trans->purchase_quantity, 2)}}&nbsp;{{$currencysDB[$crypto_id]->API_id}}</td>
-                <td class="text-center">{{$response->$crypto_id_api->EUR}}&nbsp;€</td>
-                <td class="text-center">{{$trans->expense_amount}}&nbsp;€</td>
-                <td class="text-center">{{$trans->currency_value}}&nbsp;€</td>
-                @if(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount >= 0)
-                    <td class="text-center" style="color: green">{{round(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</td>
+                    <td class="text-center">{{$currencysDB[$crypto_id]->currency_name}}</td>
+                    <td class="text-center">{{round($trans->purchase_quantity, 2)}}&nbsp;{{$currencysDB[$crypto_id]->API_id}}</td>
+                    <td class="text-center">{{$response->$crypto_id_api->EUR}}&nbsp;€</td>
+                    <td class="text-center">{{$trans->expense_amount}}&nbsp;€</td>
+                    <td class="text-center">{{$trans->currency_value}}&nbsp;€</td>
+                    @if(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount >= 0)
+                        <td class="text-center" style="color: green">{{round(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</td>
                     @else
-                    <td class="text-center" style="color: darkred">{{round(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</td>
+                        <td class="text-center" style="color: darkred">{{round(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</td>
                     @endif
-                <td class="text-center">{{$trans->date_of_purchase}}</td>
+                    <td class="text-center">{{$trans->date_of_purchase}}</td>
                     <!-- Button trigger modal -->
                     <td class="text-center">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sell{{$trans->id}}">Vendre</button>
@@ -79,19 +79,19 @@
 
                 @endif
                 @if($trans->soldes == 1)
-                        <td class="text-center">{{$currencysDB[$crypto_id]->currency_name}}</td>
-                        <td class="text-center">{{round($trans->purchase_quantity, 2)}}&nbsp;{{$currencysDB[$crypto_id]->API_id}}</td>
-                        <td class="text-center text-black-50"><s>{{$trans->sale_amount}}&nbsp;€</s></td>
-                        <td class="text-center">{{$trans->expense_amount}}&nbsp;€</td>
-                        <td class="text-center">{{$trans->currency_value}}&nbsp;€</td>
-                        @if(($trans->sale_amount * $trans->purchase_quantity) - $trans->expense_amount >= 0)
-                            <td class="text-center" style="color: green">{{round(($trans->sale_amount * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</td>
-                        @else
-                            <td class="text-center" style="color: darkred">{{round(($trans->sale_amount * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</td>
-                        @endif
-                        <td class="text-center">{{$trans->date_of_purchase}}</td>
-                        <td class="text-center"><button type="button" class="btn btn-secondary" disabled>Vendu</button></td>
+                    <td class="text-center">{{$currencysDB[$crypto_id]->currency_name}}</td>
+                    <td class="text-center">{{round($trans->purchase_quantity, 2)}}&nbsp;{{$currencysDB[$crypto_id]->API_id}}</td>
+                    <td class="text-center text-black-50"><s>{{$trans->sale_amount}}&nbsp;€</s></td>
+                    <td class="text-center">{{$trans->expense_amount}}&nbsp;€</td>
+                    <td class="text-center">{{$trans->currency_value}}&nbsp;€</td>
+                    @if(($trans->sale_amount * $trans->purchase_quantity) - $trans->expense_amount >= 0)
+                        <td class="text-center" style="color: green">{{round(($trans->sale_amount * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</td>
+                    @else
+                        <td class="text-center" style="color: darkred">{{round(($trans->sale_amount * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</td>
                     @endif
+                    <td class="text-center">{{$trans->date_of_purchase}}</td>
+                    <td class="text-center"><button type="button" class="btn btn-secondary" disabled>Vendu</button></td>
+                @endif
             </tr>
         @endforeach
         </tbody>

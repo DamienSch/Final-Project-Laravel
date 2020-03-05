@@ -16,7 +16,7 @@ class CheckClient
      */
     public function handle($request, Closure $next)
     {
-        if ( !auth()->guest() &&Auth::user()->userStatus() == 'client') {
+        if ( !auth()->guest() && Auth::user()->userStatus() == 'client') {
             return $next($request);
         } elseif (auth()->guest()) {
             return redirect('/login');

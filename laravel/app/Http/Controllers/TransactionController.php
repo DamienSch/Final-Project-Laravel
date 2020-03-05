@@ -18,17 +18,21 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    // Get API data
     public function callApi() {
         $callAPI = new \GuzzleHttp\Client();
         return json_decode($callAPI->request('GET', 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,ADA,LTC,XEM,XLM,MIOTA,DASH&tsyms=EUR')->getBody());
     }
-
+    // Get transactions
     public function index()
     {
+        // Get money account
         $moneyAccount = $this->moneyAccount();
+        // Get Api
         $response = $this->callApi();
+        // Get currency Database
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->get();
+        // Get user transaction Database
         $transactionID = DB::table('transactions')->orderBy('created_at', 'desc')->select('*')->where('user_id','=',Auth::id())->paginate(5);
         return view('transactions.index',compact('currencysDB','response','transactionID','moneyAccount'));
     }
@@ -38,14 +42,19 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    // Buy a currency -> create a transaction
     public function create($id)
     {
         session(['currencyId' => $id]);
+        // Get money account
         $moneyAccount = $this->moneyAccount();
+        // Get Api
         $response = $this->callApi();
+        // Get user
         $user = Auth::user();
+        // Get trasaction id
         $transaction = Transaction::find($id);
+        // Get currency database from transaction id
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->where('API_ID','=',$id)->get();
         return view('transactions.create', compact('response', 'user', 'currencysDB','transaction','moneyAccount'));
     }
@@ -56,18 +65,24 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Store data from buying transaction
     public function store(Request $request )
     {
+        // Get API
         $response = $this->callApi();
+        // Get currency id to store currency price
         $id = $request->session()->get('currencyId');
+        // Get currency database from currency id
         $currencysDB = DB::table('cryptomoneys')->select('id','API_id','currency_name')->where('API_ID','=',$id)->get();
         $this->validate($request , [
+            'investisment' => 'required',
         ]);
+        // store data in database
         $transactions = new Transaction;
         $transactions->user_id = Auth::id();
         $transactions->crypto_id = $currencysDB[0]->id;
-        $transactions->purchase_quantity = $request->input('expense_amount') / $response->$id->EUR;
-        $transactions->expense_amount = $request->input('expense_amount');
+        $transactions->purchase_quantity = $request->input('investisment') / $response->$id->EUR;
+        $transactions->expense_amount = $request->input('investisment');
         $transactions->sale_amount = NULL;
         $transactions->currency_value = $response->$id->EUR;
         $transactions->soldes = 0;
@@ -75,20 +90,22 @@ class TransactionController extends Controller
         $transactions->save();
         return redirect('/home')->with('success', 'Votre achat a été effectué avec succès');
     }
-
+    // Sell transactions
     public function sellTransaction(Request $request)
     {
+        // Get API
         $response = $this->callApi();
-        $id = $request->session()->get('currencyId');
+        // Get transaction id
         $transactionid = $request->transId;
+        // Get transaction database from transaction id
         $transactionsDB = DB::table('transactions')->select('*')->where('id','=',$transactionid)->get();
+        // Get currency api names
         $cryptomoneysDB = DB::table('cryptomoneys')->select('API_id')->get();
-        $this->validate($request , [
-        ]);
+        // Update Transaction for selling
         $transactions = Transaction::find($transactionid);
-        // Database Id ex:('1')
+        // Get Database Id ex:('1')
         $cryptoCurrencyId = $transactionsDB[0]->crypto_id - 1;
-        // APi Id ex:('BTC')
+        // Get APi Id ex:('BTC')
         $api = $cryptomoneysDB[$cryptoCurrencyId]->API_id;
         $transactions->user_id = Auth::user()->id;
         $transactions->crypto_id = $transactionsDB[0]->crypto_id;
@@ -101,51 +118,5 @@ class TransactionController extends Controller
         $transactions->date_of_sale = Carbon::now();
         $transactions->save();
         return redirect('/home')->with('success', 'Votre vente a été effectué avec succès');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $transaction = Transaction::find($id);
-        return view('transactions.show')->with('transaction',$transaction);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

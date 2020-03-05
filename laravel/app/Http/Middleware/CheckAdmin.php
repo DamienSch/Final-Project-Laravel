@@ -16,7 +16,7 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (!auth()->guest() && Auth::user()->userStatus() == 'admin') {
+        if ( !auth()->guest() && Auth::user()->userStatus() == 'admin') {
             return $next($request);
         } elseif (auth()->guest()) {
             return redirect('/login');

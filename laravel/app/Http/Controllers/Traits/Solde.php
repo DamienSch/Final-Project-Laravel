@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Http\Controllers\Traits;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+// Get Money value Account everywhere
 trait Solde
 {
     public function moneyAccount()

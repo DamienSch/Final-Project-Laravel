@@ -31,6 +31,5 @@ Route::group(['middleware' => ['auth' => 'CheckClient']], function () {
     Route::get('/home', 'TransactionController@index')->name('home');
     Route::get('/transaction/buy/{currency}', 'TransactionController@create')->name('transaction.create');
     Route::post('/transaction/buy', array('uses' => 'TransactionController@store'));
-    Route::get('/transaction/{transaction}', 'TransactionController@show')->name('transaction');
 });
 
