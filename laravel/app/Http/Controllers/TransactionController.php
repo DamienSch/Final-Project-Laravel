@@ -82,15 +82,19 @@ class TransactionController extends Controller
         $id = $request->session()->get('currencyId');
         $transactionid = $request->transId;
         $transactionsDB = DB::table('transactions')->select('*')->where('id','=',$transactionid)->get();
+        $cryptomoneysDB = DB::table('cryptomoneys')->select('API_id')->get();
         $this->validate($request , [
         ]);
         $transactions = Transaction::find($transactionid);
-        //dd($transactions);
+        // Database Id ex:('1')
+        $cryptoCurrencyId = $transactionsDB[0]->crypto_id - 1;
+        // APi Id ex:('BTC')
+        $api = $cryptomoneysDB[$cryptoCurrencyId]->API_id;
         $transactions->user_id = Auth::user()->id;
         $transactions->crypto_id = $transactionsDB[0]->crypto_id;
         $transactions->purchase_quantity = $transactionsDB[0]->purchase_quantity;
         $transactions->expense_amount = $transactionsDB[0]->expense_amount;
-        $transactions->sale_amount = $response->$id->EUR;
+        $transactions->sale_amount = $response->$api->EUR;
         $transactions->currency_value = $transactionsDB[0]->currency_value;
         $transactions->soldes = 1;
         $transactions->date_of_purchase = $transactionsDB[0]->date_of_purchase;

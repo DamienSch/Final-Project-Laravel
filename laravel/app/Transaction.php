@@ -9,4 +9,7 @@ class Transaction extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+    public function cryptomoney() {
+        return $this->belongsToMany(Cryptomoney::class);
+    }
 }
