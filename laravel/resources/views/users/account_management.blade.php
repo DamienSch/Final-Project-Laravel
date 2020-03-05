@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-        <div class="text-right">Mon solde est de : <span class="text-success" >{{$moneyAccount}}&nbsp;€</span></div>
+    <div class="text-right">Mon solde est de : <span class="text-success" >{{$moneyAccount}}&nbsp;€</span></div>
         <hr class="mt-1">
         <h3 class="text-center mb-3">Mes données personnelles</h3>
         <table class="table table-hover">

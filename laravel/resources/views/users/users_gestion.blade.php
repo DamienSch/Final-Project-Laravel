@@ -25,6 +25,7 @@
                 <td class="text-right"><a role="button" class="btn btn-outline-primary" href="{{ route('users_gestion') }}{{"/".$user->id}}">Modifier</a></td>
                 <td>
                     {!! Form::open(['action' => ['UsersController@destroy', $user->id], 'method' => 'post']) !!}
+                    @csrf
                     {!! Form::hidden('_method', 'DELETE', ['id' => 'id']) !!}
                     {!! Form::submit('Supprimer', ['class' => 'btn btn-outline-danger']) !!}
                     {!! Form::close() !!}

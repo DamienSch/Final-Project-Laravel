@@ -5,6 +5,7 @@
     <hr class="mt-1">
     <h3 class="text-center">Modification mes données personnelles</h3>
     {!! Form::open(['action' => ['UsersController@updateAccount'],Auth::user()->id, 'method' => 'post']) !!}
+    @csrf
     <div class="form-group">
         {!! Form::label('name', 'Nom', ['class' => 'control-label']) !!}
         {!! Form::text('name', $user->name, ['class' => 'form-control','placeholder' => 'Nom de l\'utilisateur'])!!}

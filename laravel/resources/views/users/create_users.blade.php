@@ -3,6 +3,7 @@
 @section('content')
     <h3 class="text-center">Création d'un utilisateur</h3>
     {!! Form::open(['action' => 'UsersController@store', 'method' => 'post']) !!}
+    @csrf
     <div class="form-group">
         {!! Form::label('name', 'Nom', ['class' => 'control-label']) !!}
         {!! Form::text('name', '', ['class' => 'form-control','placeholder' => 'Nom de l\'utilisateur'])!!}

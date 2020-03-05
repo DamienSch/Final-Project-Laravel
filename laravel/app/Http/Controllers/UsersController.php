@@ -21,7 +21,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::orderBy('created_at', 'desc')->paginate(5);
-        return view('users.users_gestion')->with('users',$users);
+        return view('users.users_gestion',compact('users'));
     }
 
     public function editPersonalData()
@@ -41,6 +41,9 @@ class UsersController extends Controller
     public function updateAccount(Request $request)
     {
         $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['nullable', 'string', 'min:8'],
         ]);
         $users = User::find(Auth::user()->id);
         $users->name = $request->input('name');
@@ -73,9 +76,9 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
         $users = new User;
         $users->name = $request->input('name');
@@ -124,16 +127,13 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
         ]);
         $users = User::find($id);
         $users->name = $request->input('name');
         $users->email = $request->input('email');
         $users->status = $request->input('status');
-        $users->fill([
-            'password' => Hash::make($request->newPassword)
-        ]);
         $users->save();
         return redirect('/users_gestion')->with('success', 'Votre utilisateur a été mis à jour avec succès');
     }
