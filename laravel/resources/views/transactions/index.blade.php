@@ -86,7 +86,6 @@
                 @endforeach
                 </tbody>
             </table>
-            {{print_r($transactionID)}}
             @if (@count($transactionID) < 1)
                 <td class="text-muted" colspan="7">vous n'avez pas encore de cryptomonnaie ...</td>
             @endif
