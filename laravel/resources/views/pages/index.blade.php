@@ -29,9 +29,9 @@
     <main class="py-4">
         <div class="container">
             <div class="text-center">
-                <h1>Bienvenu sur</h1>
+                <h1 class="text-white">Bienvenue sur</h1>
                 <img src="{{asset('assets/bitchest_logo.png')}}" class="img-fluid homePicture" alt="logo bitchest">
-                <p>Comparer, choisir et acheter vos Cryptomonnaies préférées sans efforts.</p>
+                <p class="text-white">Comparer, choisir et acheter vos Cryptomonnaies préférées sans efforts.</p>
             </div>
         </div>
     </main>

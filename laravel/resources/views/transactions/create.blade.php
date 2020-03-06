@@ -10,7 +10,7 @@
     date_default_timezone_set('Europe/Paris');
     $currrencyApiId = $currencysDB[0]->API_id
     ?>
-    <p class="text-success mt-5">Aujourd'hui : <strong>{{strftime("%A %d %B") }}</strong> à <strong>{{date("H:i")}}</strong> la valeur d'un <strong>{{$currencysDB[0]->currency_name}}</strong> est actuellement de <strong class="lead">{{round($response->$currrencyApiId->EUR,2)}}&nbsp;€&nbsp;*</strong></p>
+    <p class="text-success mt-5">Aujourd'hui : <strong>{{strftime("%A %d %B") }}</strong> à <strong>{{date("H:i")}}</strong> la valeur d'un <strong>{{$currencysDB[0]->currency_name}}</strong> est actuellement de <strong class="lead">{{round($response->$currrencyApiId->EUR,4)}}&nbsp;€&nbsp;*</strong></p>
     {!! Form::open(['action' => 'TransactionController@store', 'method' => 'post']) !!}
     @csrf
     <div class="form-group d-flex flex-column pt-4 pb-5">
