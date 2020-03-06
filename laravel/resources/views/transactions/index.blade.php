@@ -5,7 +5,7 @@
     <hr class="mt-1">
     <h3 class="text-center">Mes transactions</h3>
     <div class="d-flex flex-row-reverse bd-highlight mb-3">
-        <a href="{{ route('crypto_moneys')}}" type="button" class="btn btn-outline-success">Acheter une Cryptomonnaie</a>
+        <a href="{{ route('crypto_moneys')}}" type="button" class="btn btn-outline-success">Acheter une cryptomonnaie</a>
     </div>
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -19,9 +19,9 @@
                 <thead>
                 <tr>
                     <th class="text-center" scope="col">Nom</th>
-                    <th class="text-center" scope="col">Quantitée</th>
+                    <th class="text-center" scope="col">Quantité</th>
                     <th class="text-center" scope="col">Valeur actuelle</th>
-                    <th class="text-center" scope="col">Valeur investi</th>
+                    <th class="text-center" scope="col">Valeur investie</th>
                     <th class="text-center" scope="col">Prix d'achat</th>
                     <th class="text-center" scope="col">Plus-value</th>
                     <th class="text-center" scope="col">Date d'achat</th>
@@ -64,11 +64,11 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>Prix d'achat : {{$trans->currency_value}}&nbsp;€</p>
-                                            <p>Valeur actuel : {{$response->$crypto_id_api->EUR}}&nbsp;€</p>
+                                            <p>Valeur actuelle : {{$response->$crypto_id_api->EUR}}&nbsp;€</p>
                                             @if(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount < 0)
-                                                <p>Plus value : <span class="lead" style="color: darkred">{{round(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</span></p>
+                                                <p>Plus-value : <span class="lead" style="color: darkred">{{round(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</span></p>
                                             @else
-                                                <p>Plus value : <span class="lead" style="color: green">{{round(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</span></p>
+                                                <p>Plus-value : <span class="lead" style="color: green">{{round(($response->$crypto_id_api->EUR * $trans->purchase_quantity) - $trans->expense_amount,2)}}&nbsp;€</span></p>
                                             @endif
                                         </div>
                                         <div class="modal-footer">
@@ -87,7 +87,7 @@
                 </tbody>
             </table>
             @if (@count($transactionID) < 1)
-                <td class="text-muted" colspan="7">vous n'avez pas encore de cryptomonnaie ...</td>
+                <td class="text-muted" colspan="7">Vous n'avez pas encore de cryptomonnaie...</td>
             @endif
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -95,9 +95,9 @@
                 <thead>
                 <tr>
                     <th class="text-center" scope="col">Nom</th>
-                    <th class="text-center" scope="col">Quantitée</th>
+                    <th class="text-center" scope="col">Quantité</th>
                     <th class="text-center" scope="col">Valeur actuelle</th>
-                    <th class="text-center" scope="col">Valeur investi</th>
+                    <th class="text-center" scope="col">Valeur investie</th>
                     <th class="text-center" scope="col">Prix d'achat</th>
                     <th class="text-center" scope="col">Plus-value</th>
                     <th class="text-center" scope="col">Date d'achat</th>
@@ -131,7 +131,7 @@
                 </tbody>
             </table>
             @if (@count($transactionID) < 1)
-                <td class="text-muted" colspan="7">vous n'avez pas encore de vente de cryptomonnaie ...</td>
+                <td class="text-muted" colspan="7">Vous n'avez pas encore de vente de cryptomonnaie...</td>
             @endif
         </div>
     </div>

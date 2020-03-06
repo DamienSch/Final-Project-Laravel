@@ -14,11 +14,11 @@
     {!! Form::open(['action' => 'TransactionController@store', 'method' => 'post']) !!}
     @csrf
     <div class="form-group d-flex flex-column pt-4 pb-5">
-        {!! Form::label('investisment', 'Investisement', ['class' => 'control-label']) !!}
+        {!! Form::label('investisment', 'Investissement', ['class' => 'control-label']) !!}
         {!! Form::number('investisment', 'value',['type' => 'number', 'min' => 1, 'placeholder' => 'Montant à investir en euro']); !!}
     </div>
     <hr>
-    <small>*Attention la valeur d'achat de la monnaie est susceptible de variée en fonction de la seconde à laquelle l'achat à été effectuer</small>
+    <small>*Attention : la valeur d'achat de la monnaie est susceptible de varier en fonction de la seconde à laquelle l'achat a été effectué</small>
     <hr>
     <div class="text-center">
         {!! Form::submit('Acheter', ['class' => 'btn btn-lg btn-outline-success']) !!}

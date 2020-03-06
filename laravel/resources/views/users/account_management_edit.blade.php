@@ -3,7 +3,7 @@
 @section('content')
     <div class="text-right">Mon solde est de : <span class="text-success" >{{$moneyAccount}}&nbsp;€</span></div>
     <hr class="mt-1">
-    <h3 class="text-center">Modification mes données personnelles</h3>
+    <h3 class="text-center">Modification de mes données personnelles</h3>
     {!! Form::open(['action' => ['UsersController@updateAccount'],Auth::user()->id, 'method' => 'post']) !!}
     @csrf
     <div class="form-group">
@@ -20,7 +20,7 @@
     </div>
     <hr>
     <div class="text-center">
-        {!! Form::submit('Modifier cet utilisateur', ['class' => ' btn btn-lg btn-dark']) !!}
+        {!! Form::submit('Confirmer', ['class' => ' btn btn-lg btn-dark']) !!}
     </div>
     {!! Form::close() !!}
 @endsection

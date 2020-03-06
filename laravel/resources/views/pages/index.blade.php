@@ -31,7 +31,7 @@
             <div class="text-center">
                 <h1 class="text-white">Bienvenue sur</h1>
                 <img src="{{asset('assets/bitchest_logo.png')}}" class="img-fluid homePicture" alt="logo bitchest">
-                <p class="text-white">Comparer, choisir et acheter vos Cryptomonnaies préférées sans efforts.</p>
+                <p class="text-white">Comparer, choisir et acheter vos cryptomonnaies préférées sans efforts.</p>
             </div>
         </div>
     </main>

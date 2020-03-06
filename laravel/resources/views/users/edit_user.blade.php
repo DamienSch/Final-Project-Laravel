@@ -19,7 +19,7 @@
     <hr>
     {!! Form::hidden('_method', 'PUT', ['id' => 'id']) !!}
     <div class="text-center">
-        {!! Form::submit('Modifier cet utilisateur', ['class' => ' btn btn-lg btn-dark']) !!}
+        {!! Form::submit('Confirmer', ['class' => ' btn btn-lg btn-dark']) !!}
     </div>
     {!! Form::close() !!}
 @endsection

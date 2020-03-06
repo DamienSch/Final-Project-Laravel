@@ -40,7 +40,7 @@
                                         <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('home') }}">Mes transactions</a></li>
                                     @endif
                                     @if (Auth::user()->status == 'admin')
-                                        <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('users_gestion') }}">Gestions des utilisateurs</a></li>
+                                        <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('users_gestion') }}">Gestion des utilisateurs</a></li>
                                     @endif
                                     <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('crypto_moneys') }}">Cryptomonnaies</a></li>
                                     <li class="list-group-item list-group-item-action"><a class="adminNavLinks" href="{{ route('account_management') }}">Mes données personnelles</a></li>
